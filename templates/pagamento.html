@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Luxury Wheels - Pagamento</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cosmo/bootstrap.min.css" integrity="sha384-5QFXyVb+lrCzdN228VS3HmzpiE7ZVwLQtkt+0d9W43LQMzz4HBnnqvVxKg6O+04d" crossorigin="anonymous">
+    <!-- Arquivo main.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center">Pagamento</h1>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">Resumo do Aluguer</h3>
+                <p>Veículo Selecionado: {{ veiculo.nome }}</p>
+                <p>Preço do Aluguer: {{ veiculo.preco }} Euros por dia</p>
+                <p>Data da retirada do veículo: {{ data_retirada }}</p>
+                <p>Data da devolução do veículo: {{ data_devolucao }}</p>
+            </div>
+            <div class="card-footer">
+                <h3 class="card-title">Total a Pagar:</h3>
+                <p class="card-text">{{ total }} Euros</p>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="nome_cartao">Nome no Cartão:</label>
+                        {{ form.nome_cartao(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="numero_cartao">Número do Cartão:</label>
+                        {{ form.numero_cartao(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="data_validade">Data de Validade (xx/xx):</label>
+                        {{ form.data_validade(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo_seguranca">Código de Segurança:</label>
+                        {{ form.codigo_seguranca(class="form-control") }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Pagar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

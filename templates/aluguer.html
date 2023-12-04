@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Aluguer de Veículos</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cosmo/bootstrap.min.css" integrity="sha384-5QFXyVb+lrCzdN228VS3HmzpiE7ZVwLQtkt+0d9W43LQMzz4HBnnqvVxKg6O+04d" crossorigin="anonymous">
+    <!-- Arquivo main.css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center mt-4">Veículos Disponíveis para Aluguer</h1>
+        <div class="row">
+            {% for veiculo in veiculos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ veiculo.imagem }}" class="card-img-top imagem-carro" alt="Imagem do Veículo">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ veiculo.nome }}</h5>
+                            <p class="card-text">Categoria: {{ veiculo.categoria }}</p>
+                            <p class="card-text">Preço por Dia: {{ veiculo.preco }} euros</p>
+                            <form method="POST">
+                                <input type="hidden" name="veiculo_id" value="{{ veiculo.id }}">
+                                <div class="form-group">
+                                    <label for="data_retirada">Data de Retirada:</label>
+                                    <input type="date" id="data_retirada" name="data_retirada" class="form-control"
+                                           required min="{{ data_atual }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="data_devolucao">Data de Devolução:</label>
+                                    <input type="date" id="data_devolucao" name="data_devolucao" class="form-control"
+                                           required min="{{ data_retirada }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Reservar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-dismissible alert-danger">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+</body>
+</html>
